@@ -72,6 +72,16 @@ public class PokerGame {
         }else{
             handRank--;
         }
+        if(isFlush(hand)){
+            return 9;
+        }else{
+            handRank--;
+        }
+        if(isOdd(hand)){
+            return 8;
+        }else{
+            handRank--;
+        }
         return handRank;
     }
     
@@ -458,39 +468,88 @@ public class PokerGame {
         }
         return false;
     }
+    
+    public static boolean isFlush(String[] hand){
+        int cloves = 0, spades = 0, diamonds =0,hearts = 0,communityCardNumber = 0, playerCardNumber=0;
+        int cloves2 = 0, spades2 = 0,diamonds2=0,hearts2=0;
+        for(int i = 0;i<10;i++){           
+              if(i<5){
+               if(communityCardNumber < 6){
+                 if(communityCards[i].charAt(1) == 's'){
+                    spades++;
+                    
+                    communityCardNumber++;
+                 }else if(communityCards[i].charAt(1) == 'h'){
+                    hearts++;
+                   
+                    communityCardNumber++;
+                 }else if(communityCards[i].charAt(1) == 'd'){
+                    diamonds++;
+                    
+                    communityCardNumber++;
+                 }else if(communityCards[i].charAt(1) == 'c'){
+                    cloves++;
+                    
+                    communityCardNumber++;
+                 }
+               }
+               
+            }else if(i<10){
+               if(playerCardNumber <6){
+                if(hand[i-5].charAt(1) == 's'){
+                    spades2++;
+                    
+                    playerCardNumber++;
+                }else if(hand[i-5].charAt(1) == 'h'){
+                    hearts2++;
+                    
+                    playerCardNumber++;
+                }else if(hand[i-5].charAt(1) == 'd'){
+                    diamonds2++;
+                    
+                    playerCardNumber++;
+                }else if(hand[i-5].charAt(1) == 'c'){
+                    cloves2++;
+                    
+                    playerCardNumber++;
+                }
+               }
+            }
+        }
+        if(cloves >=4 && cloves2 >= 2 || cloves>=3 && cloves2 >=3|| diamonds >=4 && diamonds2 >= 2 ||diamonds >=3 && diamonds2 >= 3|| hearts >=3 && hearts2 >=3 || hearts >=4 && hearts2 >=2|| spades >=3  && spades2 >=3|| spades >=4  && spades2 >=2){
+            return true;
+        }
+        return false;
+    }
+    
+    public static boolean isOdd(String[] hand){
+        int odd = 0,odd2 = 0,communityCardNumber = 0, playerCardNumber=0;
+        
+        for(int i = 0;i<10;i++){           
+              if(i<5){
+               if(communityCardNumber < 6){
+                 if(communityCards[i].charAt(0) == '3' ||communityCards[i].charAt(0) == '5'|| communityCards[i].charAt(0) == '7'||communityCards[i].charAt(0) == '9'){
+                    odd++;
+                    
+                    communityCardNumber++;
+                 }
+               }
+               
+            }else if(i<10){
+               if(playerCardNumber <6){
+                if(hand[i-5].charAt(0) == '3'||hand[i-5].charAt(0) == '5'||hand[i-5].charAt(0) == '7'||hand[i-5].charAt(0) == '9'){
+                    odd2++;
+                    
+                    playerCardNumber++;
+                }
+               }
+            }
+        }
+        if(odd >=4 && odd2 >= 2 || odd>=3 && odd2 >=3){
+            return true;
+        }
+        return false;
+    }
+    
 }//End Class
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//        for(int j = 0;j<20;j++){
-//            
-//            if(counter >= 5){
-//                counter = 0;
-//            }
-//            if(j<5){
-//                System.out.println(j+": "+communityShield[counter]);
-//
-//            }else if(j<10){
-//                System.out.println(j+": "+player1[counter]);
-//            }else if(j<15){
-//                System.out.println(j+": "+player2[counter]);
-//            }else if(j<20){
-//                System.out.println(j+": "+player3[counter]);
-//            }
-//            
-//            counter++;
-//            
-//        }
